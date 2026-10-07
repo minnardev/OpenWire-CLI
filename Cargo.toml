@@ -4,8 +4,8 @@ version = "0.1.0"
 description = "OpenWire CLI / TUI — native soundpad and real-time audio effects processor for Linux (PipeWire)"
 edition = "2021"
 rust-version = "1.77"
-authors = ["Mark", "OpenWire Contributors"]
-license = "MIT"
+authors = ["GitiAdrescor", "minnardev"]
+license = "GPL-3.0-or-later"
 
 [dependencies]
 ratatui = "0.29"

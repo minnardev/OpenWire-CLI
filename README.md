@@ -100,3 +100,13 @@ cargo build --release --no-default-features
 | **N** | Next preset |
 | **Del** | Clear pad |
 | **Q** | Quit |
+
+---
+
+## Authorship and License
+
+- **Original Project:** [OpenWire](https://github.com/AdrescorGiti/OpenWire)
+- **Original Author:** **GitiAdrescor**
+- **License:** [GNU General Public License v3.0 (GPLv3)](LICENSE).
+
+In accordance with the GNU General Public License v3.0, this CLI port retains the original GPLv3 license and credits the creator of the original project.

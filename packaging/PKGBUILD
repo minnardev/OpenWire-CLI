@@ -1,14 +1,13 @@
-# Maintainer: OpenWire Contributors <dev@openwire.local>
-#
-# PKGBUILD for OpenWire CLI (Linux PipeWire Native TUI)
+# Original author: GitiAdrescor
+# Maintainer: minnardev
 
 pkgname=openwire-cli
 pkgver=0.1.0
 pkgrel=1
 pkgdesc="Native soundpad and real-time audio effects processor for Linux (PipeWire + Ratatui TUI)"
 arch=('x86_64' 'aarch64')
-url="https://github.com/openwire/openwire-cli"
-license=('MIT')
+url="https://github.com/minnardev/OpenWire-CLI"
+license=('GPL-3.0-or-later')
 depends=(
   'libpipewire'
 )

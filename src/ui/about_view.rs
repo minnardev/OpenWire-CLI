@@ -84,6 +84,15 @@ pub fn render_about(f: &mut Frame, area: Rect) {
             Span::styled("  [Q]              ", style_key_badge()),
             Span::raw("Выход из программы"),
         ]),
+        Line::raw(""),
+        Line::from(vec![
+            Span::styled("Автор оригинала OpenWire: ", Style::default().fg(FG_MUTED)),
+            Span::styled("GitiAdrescor", Style::default().fg(ORANGE_LIGHT)),
+        ]),
+        Line::from(vec![
+            Span::styled("Лицензия: ", Style::default().fg(FG_MUTED)),
+            Span::styled("GNU General Public License v3.0 (GPLv3)", Style::default().fg(FG_TEXT)),
+        ]),
     ];
 
     let info_block = Block::default()
