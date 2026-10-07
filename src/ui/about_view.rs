@@ -8,98 +8,88 @@ use crate::banner::ascii_art_widget;
 use super::theme::*;
 
 pub fn render_about(f: &mut Frame, area: Rect) {
-    let chunks = Layout::default()
-        .direction(Direction::Horizontal)
-        .constraints([
-            Constraint::Percentage(55), // Full Orange ASCII Art Logo
-            Constraint::Percentage(45), // Info, Features & Shortcuts
-        ])
-        .split(area);
+    let (logo_rect, info_rect) = if area.width >= 96 {
+        let chunks = Layout::default()
+            .direction(Direction::Horizontal)
+            .constraints([
+                Constraint::Length(56), // Logo width: 52 chars + borders
+                Constraint::Min(36),   // Info & shortcuts
+            ])
+            .split(area);
+        (chunks[0], chunks[1])
+    } else {
+        let chunks = Layout::default()
+            .direction(Direction::Vertical)
+            .constraints([
+                Constraint::Length(28),
+                Constraint::Min(10),
+            ])
+            .split(area);
+        (chunks[0], chunks[1])
+    };
 
-    // Left: The user's exact Orange ASCII Art Logo
+    // Left / Top: Non-stretched orange ASCII logo
     let ascii_text = ascii_art_widget();
     let logo_block = Block::default()
         .borders(Borders::ALL)
         .border_style(style_border_active())
-        .title(" 📻 OpenWire Logo ");
+        .title(" OpenWire ");
     let logo_p = Paragraph::new(ascii_text)
         .block(logo_block)
         .alignment(Alignment::Center);
-    f.render_widget(logo_p, chunks[0]);
+    f.render_widget(logo_p, logo_rect);
 
-    // Right: Info and Hotkeys
+    // Right / Bottom: Clean info and controls (without emojis or unnecessary details)
     let info_lines = vec![
         Line::from(vec![
-            Span::styled("OpenWire CLI / TUI ", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
-            Span::styled("v0.1.0", Style::default().fg(FG_MUTED)),
+            Span::styled("OpenWire CLI", Style::default().fg(ORANGE).add_modifier(Modifier::BOLD)),
         ]),
-        Line::from(Span::styled("Native soundpad and real-time DSP voice effects for Linux", Style::default().fg(CYAN_INFO))),
+        Line::from(Span::styled("Саундпад и эффекты голоса для Linux", Style::default().fg(CYAN_INFO))),
         Line::raw(""),
-        Line::from(vec![
-            Span::styled("⚡ Архитектура: ", Style::default().fg(ORANGE_LIGHT).add_modifier(Modifier::BOLD)),
-            Span::styled("Чистый Rust (без WebKit / Tauri / Node.js)", Style::default().fg(FG_TEXT)),
-        ]),
-        Line::from(vec![
-            Span::styled("🎧 Аудиостек:   ", Style::default().fg(ORANGE_LIGHT).add_modifier(Modifier::BOLD)),
-            Span::styled("Linux PipeWire + LibSPA низколатентный граф", Style::default().fg(FG_TEXT)),
-        ]),
-        Line::from(vec![
-            Span::styled("💾 Пресеты:     ", Style::default().fg(ORANGE_LIGHT).add_modifier(Modifier::BOLD)),
-            Span::styled("Полная совместимость с TOML-пресетами OpenWire", Style::default().fg(FG_TEXT)),
-        ]),
+        Line::from(Span::styled("Пресеты голоса:", Style::default().fg(ORANGE_LIGHT).add_modifier(Modifier::BOLD))),
+        Line::from(Span::styled("  Конфигурации эффектов хранятся в формате TOML.", Style::default().fg(FG_TEXT))),
+        Line::from(Span::styled("  Можно переключать пресеты (N), сохранять текущие (S)", Style::default().fg(FG_TEXT))),
+        Line::from(Span::styled("  или возвращаться к чистому голосу (R).", Style::default().fg(FG_TEXT))),
         Line::raw(""),
-        Line::from(Span::styled("─── Горячие клавиши навигации ───", Style::default().fg(ORANGE_DARK).add_modifier(Modifier::BOLD))),
+        Line::from(Span::styled("Горячие клавиши:", Style::default().fg(ORANGE_LIGHT).add_modifier(Modifier::BOLD))),
         Line::from(vec![
-            Span::styled("  [F1..F5 / 1..5]  ", style_key_badge()),
-            Span::raw("Переключение вкладок"),
-        ]),
-        Line::from(vec![
-            Span::styled("  [Tab]            ", style_key_badge()),
-            Span::raw("Следующая вкладка"),
+            Span::styled("  [1..5 / Tab]     ", style_key_badge()),
+            Span::raw("Вкладки (Пады, Эффекты, Пресеты, Мониторы)"),
         ]),
         Line::from(vec![
             Span::styled("  [Пробел / Enter] ", style_key_badge()),
-            Span::raw("Воспроизведение / Действие"),
+            Span::raw("Воспроизведение пада / выбор"),
+        ]),
+        Line::from(vec![
+            Span::styled("  [S]              ", style_key_badge()),
+            Span::raw("Остановить выбранный пад"),
         ]),
         Line::from(vec![
             Span::styled("  [Esc]            ", style_key_badge()),
-            Span::raw("ПАНИКА: заглушить все звуки"),
+            Span::raw("Паника — заглушить все звуки"),
         ]),
         Line::from(vec![
             Span::styled("  [I]              ", style_key_badge()),
-            Span::raw("Импортировать аудиофайл в пад"),
+            Span::raw("Импорт аудиофайла в выбранный пад"),
         ]),
         Line::from(vec![
             Span::styled("  [B]              ", style_key_badge()),
-            Span::raw("Сменить звуковой банк"),
-        ]),
-        Line::from(vec![
-            Span::styled("  [N]              ", style_key_badge()),
-            Span::raw("Следующий голосовой пресет"),
-        ]),
-        Line::from(vec![
-            Span::styled("  [R]              ", style_key_badge()),
-            Span::raw("Сброс эффектов (Чистый голос)"),
+            Span::raw("Сменить банк звуков"),
         ]),
         Line::from(vec![
             Span::styled("  [M]              ", style_key_badge()),
-            Span::raw("Слышать себя (Мониторинг)"),
+            Span::raw("Слышать себя / переключить режим"),
         ]),
         Line::from(vec![
             Span::styled("  [Q]              ", style_key_badge()),
-            Span::raw("Выход из OpenWire CLI"),
+            Span::raw("Выход из программы"),
         ]),
-        Line::raw(""),
-        Line::from(Span::styled("─── Аудио-движок ───", Style::default().fg(ORANGE_DARK).add_modifier(Modifier::BOLD))),
-        Line::from(Span::styled("• Сверхнизкая задержка (~1.3 мс при quantum 64)", Style::default().fg(FG_MUTED))),
-        Line::from(Span::styled("• Виртуальный микрофон: openwire.virtual-mic", Style::default().fg(FG_MUTED))),
-        Line::from(Span::styled("• Авто-приглушение микрофона при воспроизведении падов", Style::default().fg(FG_MUTED))),
     ];
 
     let info_block = Block::default()
         .borders(Borders::ALL)
         .border_style(style_border_inactive())
-        .title(" Справка и управление ");
+        .title(" Справка ");
     let info_p = Paragraph::new(info_lines).block(info_block);
-    f.render_widget(info_p, chunks[1]);
+    f.render_widget(info_p, info_rect);
 }

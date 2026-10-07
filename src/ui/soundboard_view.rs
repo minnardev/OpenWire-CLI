@@ -58,7 +58,7 @@ pub fn render_soundboard(
         Block::default()
             .borders(Borders::ALL)
             .border_style(style_border_inactive())
-            .title(" 📁 Аудио-банки (B: сменить банк, 1-9: быстрый выбор) "),
+            .title(" Аудио-банки (B: сменить банк, 1-9: быстрый выбор) "),
     );
     f.render_widget(banks_bar, chunks[0]);
 
@@ -135,10 +135,10 @@ pub fn render_soundboard(
                     ),
                 ]),
                 Line::from(vec![
-                    Span::styled(format!("   📎 {path_str}"), Style::default().fg(FG_MUTED)),
+                    Span::styled(format!("   {path_str}"), Style::default().fg(FG_MUTED)),
                 ]),
                 Line::from(vec![
-                    Span::styled(format!("   ⚙ {mode_str}"), Style::default().fg(CYAN_INFO)),
+                    Span::styled(format!("   {mode_str}"), Style::default().fg(CYAN_INFO)),
                 ]),
             ];
 

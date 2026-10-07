@@ -69,7 +69,7 @@ pub fn render_presets(
     let list_block = Block::default()
         .borders(Borders::ALL)
         .border_style(style_border_active())
-        .title(format!(" 🎭 Доступные пресеты голоса ({}) ", names.len()));
+        .title(format!(" Пресеты голоса ({}) ", names.len()));
     let list_p = Paragraph::new(list_lines).block(list_block);
     f.render_widget(list_p, chunks[0]);
 

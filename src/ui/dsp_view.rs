@@ -117,7 +117,7 @@ pub fn render_dsp(
     let block = Block::default()
         .borders(Borders::ALL)
         .border_style(style_border_active())
-        .title(format!(" 🎛️ DSP Процессор Голоса (Текущий пресет: \"{}\") ", active_preset_name));
+        .title(format!(" DSP Процессор Голоса (Текущий пресет: \"{}\") ", active_preset_name));
 
     let list_p = Paragraph::new(lines).block(block);
     f.render_widget(list_p, chunks[0]);

@@ -53,25 +53,20 @@ pub fn render_monitor(f: &mut Frame, area: Rect, state: &AppState) {
     let (mic_spans, mic_db) = format_vu_meter(mic_peak, meter_width);
     let (out_spans, out_db) = format_vu_meter(out_peak, meter_width);
 
-    let mut vu_lines = Vec::new();
-    vu_lines.push(Line::from(vec![
-        Span::styled(" 🎤 Mic In Peak:   [", Style::default().fg(FG_TEXT)),
-        Span::styled("", Style::default()), // placeholder
-    ]));
     // Combine mic line
     let mut mic_line_spans = vec![
-        Span::styled(" 🎤 Mic In:  [", Style::default().fg(FG_TEXT)),
+        Span::styled(" Mic In:  [", Style::default().fg(FG_TEXT)),
     ];
     mic_line_spans.extend(mic_spans);
     mic_line_spans.push(Span::styled(format!("] {mic_db}"), Style::default().fg(ORANGE_LIGHT)));
 
     let mut out_line_spans = vec![
-        Span::styled(" 🔊 Out Mic: [", Style::default().fg(FG_TEXT)),
+        Span::styled(" Out Mic: [", Style::default().fg(FG_TEXT)),
     ];
     out_line_spans.extend(out_spans);
     out_line_spans.push(Span::styled(format!("] {out_db}"), Style::default().fg(ORANGE_LIGHT)));
 
-    vu_lines = vec![
+    let vu_lines = vec![
         Line::raw(""),
         Line::from(mic_line_spans),
         Line::raw(""),
@@ -82,7 +77,7 @@ pub fn render_monitor(f: &mut Frame, area: Rect, state: &AppState) {
     let vu_block = Block::default()
         .borders(Borders::ALL)
         .border_style(style_border_active())
-        .title(" 📊 Пиковые VU-индикаторы громкости в реальном времени ");
+        .title(" Пиковые VU-индикаторы громкости в реальном времени ");
     let vu_p = Paragraph::new(vu_lines).block(vu_block);
     f.render_widget(vu_p, chunks[0]);
 
@@ -117,7 +112,7 @@ pub fn render_monitor(f: &mut Frame, area: Rect, state: &AppState) {
     let pw_block = Block::default()
         .borders(Borders::ALL)
         .border_style(style_border_inactive())
-        .title(" ⚙️ Параметры аудиосервера Linux PipeWire ");
+        .title(" Параметры аудиосервера Linux PipeWire ");
     let pw_p = Paragraph::new(pw_lines).block(pw_block);
     f.render_widget(pw_p, chunks[1]);
 

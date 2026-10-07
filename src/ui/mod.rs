@@ -98,11 +98,11 @@ pub fn render_ui(f: &mut Frame, state: &AppState, ui_state: &UiState) {
 
     // 1. Top Header Tabs
     let tabs = [
-        (ActiveTab::Soundboard, "[1] 🔊 Пады"),
-        (ActiveTab::Dsp, "[2] 🎙️ Эффекты"),
-        (ActiveTab::Presets, "[3] 🎭 Пресеты"),
-        (ActiveTab::Monitor, "[4] 📊 Мониторы"),
-        (ActiveTab::About, "[5] ℹ️ О программе"),
+        (ActiveTab::Soundboard, "[1] Пады"),
+        (ActiveTab::Dsp, "[2] Эффекты"),
+        (ActiveTab::Presets, "[3] Пресеты"),
+        (ActiveTab::Monitor, "[4] Мониторы"),
+        (ActiveTab::About, "[5] О программе"),
     ];
 
     let mut tab_spans = vec![
@@ -163,7 +163,7 @@ pub fn render_ui(f: &mut Frame, state: &AppState, ui_state: &UiState) {
 
     let notif_span = if let Some((msg, created)) = &ui_state.status_notification {
         if created.elapsed().as_secs() < 4 {
-            Span::styled(format!(" 🔔 {msg} "), Style::default().fg(ORANGE_LIGHT).add_modifier(Modifier::BOLD))
+            Span::styled(format!(" [{msg}] "), Style::default().fg(ORANGE_LIGHT).add_modifier(Modifier::BOLD))
         } else {
             Span::raw("")
         }
