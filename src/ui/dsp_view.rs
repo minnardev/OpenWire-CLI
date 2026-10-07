@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use ratatui::layout::{Constraint, Direction, Layout, Rect};
 use ratatui::style::{Color, Modifier, Style};
 use ratatui::text::{Line, Span};
@@ -86,7 +88,7 @@ pub fn render_dsp(
             }
             ParamKind::Float { val, min, max, unit, .. } => {
                 let norm = ((val - min) / (max - min)).clamp(0.0, 1.0);
-                let bar_width = 16;
+                let bar_width: usize = 16;
                 let filled = (norm * bar_width as f32).round() as usize;
                 let bar: String = "█".repeat(filled) + &"░".repeat(bar_width.saturating_sub(filled));
                 let text = format!("{:>6.1} {:<3}", val, unit);

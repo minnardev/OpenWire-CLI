@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use ringbuf::traits::{Consumer, Producer, Split};
 use ringbuf::{HeapCons, HeapProd, HeapRb};
 use std::sync::atomic::{AtomicUsize, Ordering};

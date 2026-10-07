@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use rustfft::num_complex::Complex32;
 use rustfft::FftPlanner;
 use std::sync::atomic::{AtomicBool, AtomicU32, Ordering};

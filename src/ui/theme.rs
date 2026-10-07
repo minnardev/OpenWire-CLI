@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use ratatui::style::{Color, Modifier, Style};
 
 pub const ORANGE: Color = Color::Rgb(255, 140, 0);          // #FF8C00

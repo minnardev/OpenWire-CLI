@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use anyhow::{anyhow, Result};
 use std::collections::HashMap;
 use std::path::PathBuf;

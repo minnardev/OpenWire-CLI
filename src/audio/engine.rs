@@ -365,7 +365,8 @@ pub fn start(dsp_params: Arc<DspSharedParams>, mixer: MixerBus) -> Result<AudioE
                 let mut mixer = mixer;
                 let mut monitor_buf = vec![0.0f32; 64];
                 let mut stream_buf = vec![0.0f32; 64];
-                while std::thread::sleep(std::time::Duration::from_millis(15)).is_ok() {
+                loop {
+                    std::thread::sleep(std::time::Duration::from_millis(15));
                     let active = mixer.render(64, &mut monitor_buf, &mut stream_buf);
                     let out_peak = if active {
                         stream_buf.iter().map(|s| s.abs()).fold(0.0f32, f32::max)

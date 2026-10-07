@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use ratatui::style::{Color, Modifier, Style};
 use ratatui::text::{Line, Span, Text};
 
@@ -70,7 +72,7 @@ pub const ORANGE_DARK: Color = Color::Rgb(180, 80, 0);         // Deep rust/oran
 /// Returns the ASCII art styled in orange as a Ratatui Text
 pub fn ascii_art_widget() -> Text<'static> {
     let style = Style::default().fg(ORANGE_COLOR).add_modifier(Modifier::BOLD);
-    let lines = OPENWIRE_ASCII_ART
+    let lines: Vec<Line<'static>> = OPENWIRE_ASCII_ART
         .lines()
         .map(|line| Line::from(Span::styled(line.to_string(), style)))
         .collect();
@@ -80,7 +82,7 @@ pub fn ascii_art_widget() -> Text<'static> {
 /// Returns the compact logo styled in orange
 pub fn compact_logo_widget() -> Text<'static> {
     let style = Style::default().fg(ORANGE_COLOR).add_modifier(Modifier::BOLD);
-    let lines = OPENWIRE_COMPACT_LOGO
+    let lines: Vec<Line<'static>> = OPENWIRE_COMPACT_LOGO
         .lines()
         .map(|line| Line::from(Span::styled(line.to_string(), style)))
         .collect();

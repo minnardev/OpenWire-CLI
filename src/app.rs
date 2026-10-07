@@ -8,7 +8,7 @@ use std::time::{Duration, Instant};
 
 use crate::presets::voice_config::VoicePreset;
 use crate::state::AppState;
-use crate::ui::dsp_view::{get_dsp_params, ParamKind, DSP_PARAM_COUNT};
+use crate::ui::dsp_view::DSP_PARAM_COUNT;
 use crate::ui::*;
 
 pub struct App {
@@ -148,8 +148,8 @@ impl App {
                             let snap = self.state.dsp.snapshot();
                             let meta = crate::presets::voice_config::Meta {
                                 name: text.clone(),
-                                description: Some("Пользовательский пресет OpenWire CLI".to_string()),
-                                author: Some("OpenWire CLI".to_string()),
+                                description: "Пользовательский пресет OpenWire CLI".to_string(),
+                                author: "OpenWire CLI".to_string(),
                                 version: 1,
                             };
                             let preset = VoicePreset::from_dto(meta, &snap, &text);

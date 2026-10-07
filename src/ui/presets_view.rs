@@ -98,11 +98,11 @@ pub fn render_presets(
             ]),
             Line::from(vec![
                 Span::styled("Описание: ", Style::default().fg(FG_MUTED)),
-                Span::styled(preset.meta.description.unwrap_or_else(|| "—".to_string()), Style::default().fg(FG_TEXT)),
+                Span::styled(if preset.meta.description.is_empty() { "—".to_string() } else { preset.meta.description }, Style::default().fg(FG_TEXT)),
             ]),
             Line::from(vec![
                 Span::styled("Автор: ", Style::default().fg(FG_MUTED)),
-                Span::styled(preset.meta.author.unwrap_or_else(|| "OpenWire".to_string()), Style::default().fg(FG_TEXT)),
+                Span::styled(if preset.meta.author.is_empty() { "OpenWire".to_string() } else { preset.meta.author }, Style::default().fg(FG_TEXT)),
             ]),
             Line::from(vec![
                 Span::styled("Каталог: ", Style::default().fg(FG_MUTED)),
