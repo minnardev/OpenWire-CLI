@@ -1,0 +1,34 @@
+[package]
+name = "openwire-cli"
+version = "0.1.0"
+description = "OpenWire CLI / TUI — native soundpad and real-time audio effects processor for Linux (PipeWire)"
+edition = "2021"
+rust-version = "1.77"
+authors = ["Mark", "OpenWire Contributors"]
+license = "MIT"
+
+[dependencies]
+ratatui = "0.29"
+crossterm = "0.28"
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+anyhow = "1"
+thiserror = "2"
+dirs = "6"
+symphonia = { version = "0.5", features = ["mp3", "wav", "flac", "ogg", "vorbis", "aac", "pcm"] }
+ringbuf = "0.4"
+rustfft = "6"
+rdev = "0.5"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+pipewire = { version = "0.10", optional = true }
+libspa = { version = "0.10", optional = true }
+
+[features]
+default = ["pipewire"]
+pipewire = ["dep:pipewire", "dep:libspa"]
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+panic = "abort"

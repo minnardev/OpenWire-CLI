@@ -1,0 +1,32 @@
+# Maintainer: OpenWire Contributors <dev@openwire.local>
+#
+# PKGBUILD for OpenWire CLI (Linux PipeWire Native TUI)
+
+pkgname=openwire-cli
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Native soundpad and real-time audio effects processor for Linux (PipeWire + Ratatui TUI)"
+arch=('x86_64' 'aarch64')
+url="https://github.com/openwire/openwire-cli"
+license=('MIT')
+depends=(
+  'libpipewire'
+)
+makedepends=(
+  'rust'
+  'cargo'
+)
+source=()
+sha256sums=()
+
+build() {
+  cd "$startdir/.."
+  cargo build --release --locked
+}
+
+package() {
+  local bin="$startdir/../target/release/$pkgname"
+  install -Dm755 "$bin" "$pkgdir/usr/bin/$pkgname"
+  install -Dm644 "$startdir/openwire-cli.desktop" \
+    "$pkgdir/usr/share/applications/$pkgname.desktop"
+}

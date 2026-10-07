@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=OpenWire CLI
+Comment=Native Soundpad and Voice DSP Processor for Linux
+Exec=openwire-cli
+Terminal=true
+Type=Application
+Categories=AudioVideo;Audio;Recorder;
+Keywords=soundboard;soundpad;dsp;voice;pipewire;cli;tui;
