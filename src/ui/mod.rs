@@ -87,6 +87,9 @@ impl Default for UiState {
 pub fn render_ui(f: &mut Frame, state: &AppState, ui_state: &UiState) {
     let size = f.area();
 
+    // Clear entire frame before rendering to prevent ghosting between tabs
+    f.render_widget(Clear, size);
+
     let chunks = Layout::default()
         .direction(Direction::Vertical)
         .constraints([

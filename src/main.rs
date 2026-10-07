@@ -68,6 +68,28 @@ fn main() -> Result<()> {
         }
     }
 
+    // Suppress raw C-level stderr logs from PipeWire/SPA so they don't break TUI alternate screen
+    if std::env::var_os("PIPEWIRE_LOG").is_none() {
+        std::env::set_var("PIPEWIRE_LOG", "0");
+    }
+    if std::env::var_os("SPA_LOG_LEVEL").is_none() {
+        std::env::set_var("SPA_LOG_LEVEL", "0");
+    }
+
+    #[cfg(unix)]
+    {
+        use std::os::unix::io::AsRawFd;
+        if let Ok(logfile) = std::fs::OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open("/tmp/openwire.log")
+        {
+            unsafe {
+                libc::dup2(logfile.as_raw_fd(), libc::STDERR_FILENO);
+            }
+        }
+    }
+
     // Set up custom panic hook to always restore terminal on unhandled panics
     let original_hook = std::panic::take_hook();
     std::panic::set_hook(Box::new(move |panic_info| {
@@ -82,6 +104,7 @@ fn main() -> Result<()> {
     execute!(stdout, EnterAlternateScreen)?;
     let backend = CrosstermBackend::new(stdout);
     let mut terminal = Terminal::new(backend)?;
+    terminal.clear()?;
 
     // Run application loop
     let mut app = match App::new() {

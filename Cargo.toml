@@ -19,6 +19,7 @@ symphonia = { version = "0.5", features = ["mp3", "wav", "flac", "ogg", "vorbis"
 ringbuf = "0.4"
 rustfft = "6"
 rdev = "0.5"
+libc = "0.2"
 
 [target.'cfg(target_os = "linux")'.dependencies]
 pipewire = { version = "0.10", optional = true }
